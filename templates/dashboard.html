@@ -11,7 +11,7 @@
 <div class="navbar"><div class="brand">IBVAP // SYSTEM MONITORING STATION</div><div class="sys">LOW-MEMORY DEMO MODE</div><a class="logout" href="/logout">LOGOUT</a></div>
 <div class="wrap">
 <div class="notice"><b>Prototype deployment:</b> This public demo uses lightweight OpenCV video analytics so it can run on low-memory hosting. The uploaded demo clip is used only as video input; the full YOLOv8 + DeepFace/ArcFace + ALPR pipeline remains available in the project for local/GPU deployment.</div>
-<div class="feed"><div class="tag">CAM 01 // DEMO VIDEO ANALYTICS</div><video id="demoVideo" src="{{ url_for('demo_video') }}" autoplay muted loop playsinline controls preload="auto" poster="{{ url_for('static_demo_poster') }}"></video></div>
+<div class="feed"><div class="tag">CAM 01 // DEMO VIDEO ANALYTICS</div><video id="demoVideo" src="{{ url_for('static', filename='demo_input.mp4') }}" autoplay muted loop playsinline controls preload="auto"></video></div>
 <div class="panel"><div class="head">LIVE INCIDENT LOGS</div><div id="alerts"><div class="small">Waiting for events...</div></div></div>
 </div>
 <script>
