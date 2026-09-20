@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IBVAP | Demo Monitoring Station</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}body{font-family:monospace;background:#06090a;color:#00ff66;min-height:100vh}.navbar{height:54px;background:#0c1214;border-bottom:2px solid #1a2a22;display:flex;align-items:center;justify-content:space-between;padding:0 18px}.brand{color:#fff;font-weight:bold;letter-spacing:2px}.sys{color:#ffcc00;font-size:12px}.logout{color:#ff3344;text-decoration:none;border:1px solid #ff3344;padding:5px 10px}.wrap{padding:16px;max-width:1400px;margin:auto}.feed{background:#000;border:1px solid #1a3a2a;position:relative;display:flex;justify-content:center;align-items:center;min-height:420px}.feed video{display:block;width:100%;max-height:68vh;object-fit:contain;background:#000}.tag{position:absolute;top:12px;left:12px;background:#000b;padding:6px 9px;border:1px solid #00ff66}.notice{margin:12px 0;padding:10px;border:1px solid #1a3a2a;background:#09100d;color:#d0e0d5;font-size:13px}.panel{margin-top:14px;border:1px solid #1a2a22;padding:12px}.head{color:#ff3344;border-bottom:1px solid #ff3344;padding-bottom:8px;margin-bottom:10px}.alert{padding:8px;border-left:3px solid #ff3344;background:#160d0f;margin-bottom:7px;color:#ddd}.time{color:#ffcc00}.small{font-size:11px;color:#9aa}.actions{margin-top:10px}
+</style>
+</head>
+<body>
+<div class="navbar"><div class="brand">IBVAP // SYSTEM MONITORING STATION</div><div class="sys">LOW-MEMORY DEMO MODE</div><a class="logout" href="/logout">LOGOUT</a></div>
+<div class="wrap">
+<div class="notice"><b>Prototype deployment:</b> This public demo uses lightweight OpenCV video analytics so it can run on low-memory hosting. The uploaded demo clip is used only as video input; the full YOLOv8 + DeepFace/ArcFace + ALPR pipeline remains available in the project for local/GPU deployment.</div>
+<div class="feed"><div class="tag">CAM 01 // DEMO VIDEO ANALYTICS</div><video id="demoVideo" src="{{ url_for('demo_video') }}" autoplay muted loop playsinline controls preload="auto" poster="{{ url_for('static_demo_poster') }}"></video></div>
+<div class="panel"><div class="head">LIVE INCIDENT LOGS</div><div id="alerts"><div class="small">Waiting for events...</div></div></div>
+</div>
+<script>
+const v=document.getElementById('demoVideo'); v.addEventListener('loadedmetadata',()=>{v.play().catch(()=>{});}); v.addEventListener('canplay',()=>{v.play().catch(()=>{});}); function load(){fetch('/get_alerts').then(r=>r.json()).then(a=>{let e=document.getElementById('alerts');if(!a.length){e.innerHTML='<div class="small">No events detected.</div>';return}e.innerHTML=a.map(x=>`<div class="alert"><span class="time">[${x.time}]</span> ${x.msg}</div>`).join('')})}setInterval(load,1000);load();
+</script>
+</body></html>

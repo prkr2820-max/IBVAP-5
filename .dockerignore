@@ -1,0 +1,11 @@
+.git
+__pycache__
+*.pyc
+master.key
+*.log
+debug_first_frame.jpg
+yolov8s.pt
+yolov8n-face-lindevs.pt
+yolov8n.pt
+app_full_original.py
+templates/dashboard_full_original.html
